@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 import { urlFor, client } from '../../client';
+import {AppWrap} from '../../wrapper'
 
 import { images } from '../../constants';
 
@@ -31,17 +32,15 @@ import './About.scss';
 // ];
 
 const About = () => {
+  const [abouts, setAbouts] = useState([]);
 
-  const [abouts, setAbouts] = useState([])
+  useEffect(() => {
+    const query = '*[_type == "abouts"]';
 
-   useEffect(() => {
-     const query = '*[_type == "abouts"]';
-
-     client.fetch(query).then((data) => {
-       setAbouts(data);
-     });
-   }, []);
-  
+    client.fetch(query).then((data) => {
+      setAbouts(data);
+    });
+  }, []);
 
   return (
     <>
@@ -76,4 +75,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AppWrap(About,'about');
