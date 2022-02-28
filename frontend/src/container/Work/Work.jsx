@@ -12,20 +12,20 @@ const Work = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [animateCard, setAnimateCard] = useState({ y: 0, opacity: 1 });
 
-   const handleWorkFilter = (item) => {
-     setActiveFilter(item);
-     setAnimateCard([{ y: 100, opacity: 0 }]);
+  const handleWorkFilter = (item) => {
+    setActiveFilter(item);
+    setAnimateCard([{ y: 100, opacity: 0 }]);
 
-     setTimeout(() => {
-       setAnimateCard([{ y: 0, opacity: 1 }]);
+    setTimeout(() => {
+      setAnimateCard([{ y: 0, opacity: 1 }]);
 
-       if (item === 'All') {
-         setFilterWork(works);
-       } else {
-         setFilterWork(works.filter((work) => work.tags.includes(item)));
-       }
-     }, 500);
-   };
+      if (item === 'All') {
+        setFilterWork(works);
+      } else {
+        setFilterWork(works.filter((work) => work.tags.includes(item)));
+      }
+    }, 500);
+  };
 
   useEffect(() => {
     const query = '*[_type == "works"]';
@@ -117,4 +117,8 @@ const Work = () => {
   );
 };
 
-export default Work;
+export default AppWrap(
+  MotionWrap(Work, 'app__works'),
+  'work',
+  'app__primarybg'
+);
